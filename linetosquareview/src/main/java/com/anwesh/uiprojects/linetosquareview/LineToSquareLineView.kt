@@ -24,7 +24,7 @@ fun Canvas.drawSLANode(i : Int, scale : Float, paint : Paint) {
     val origSize = gap/20
     val dSize : Float = origSize + (gap/2 - origSize) * sc1
     val x : Float = (w/2 - gap/2) * sc2 * (1f - 2 * (i % 2))
-    paint.color = Color.parseColor("#4CAF50")
+    paint.color = Color.parseColor("#1565C0")
     save()
     translate(w/2, gap * i + gap /2 + gap / 2)
 //    if (scale == 0f) {
