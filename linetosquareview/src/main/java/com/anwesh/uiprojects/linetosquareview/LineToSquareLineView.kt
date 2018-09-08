@@ -162,4 +162,25 @@ class LineToSquareLineView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : LineToSquareLineView) {
+        private val ltas : LineToAltSquare = LineToAltSquare(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            ltas.draw(canvas, paint)
+            animator.animate {
+                ltas.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ltas.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
