@@ -43,6 +43,12 @@ class LineToSquareLineView(ctx : Context) : View(ctx) {
 
     private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
+    private var onMovementListener : OnMovementListener? = null
+
+    fun addOnMovementListener(onComplete : (Int) -> Unit, onReset : (Int) -> Unit) {
+        onMovementListener = OnMovementListener(onComplete, onReset)
+    }
+
     override fun onDraw(canvas : Canvas) {
         renderer.render(canvas, paint)
     }
@@ -179,6 +185,10 @@ class LineToSquareLineView(ctx : Context) : View(ctx) {
             animator.animate {
                 ltas.update {i, scl ->
                     animator.stop()
+                    when (scl) {
+                        0f -> view.onMovementListener?.onReset?.invoke(i)
+                        1f -> view.onMovementListener?.onComplete?.invoke(i)
+                    }
                 }
             }
         }
@@ -197,4 +207,6 @@ class LineToSquareLineView(ctx : Context) : View(ctx) {
             return view
         }
     }
+
+    data class OnMovementListener(var onComplete : (Int) -> Unit, var onReset: (Int) -> Unit) {}
 }
