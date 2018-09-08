@@ -21,16 +21,19 @@ fun Canvas.drawSLANode(i : Int, scale : Float, paint : Paint) {
     val gap : Float = h / (nodes + 1)
     val sc1 : Float = Math.min(0.5f, scale) * 2
     val sc2 : Float = Math.min(0.5f, Math.max(scale - 0.5f, 0f)) * 2
-    val origSize = -gap/20
+    val origSize = gap/20
     val dSize : Float = origSize + (gap/2 - origSize) * sc1
-    val x : Float = (w - gap/2) * sc2 * (1f - 2 * (i % 2))
+    val x : Float = (w/2 - gap/2) * sc2 * (1f - 2 * (i % 2))
     paint.color = Color.parseColor("#4CAF50")
     save()
-    translate(w/2, gap * i + gap /2 + gap / 4)
+    translate(w/2, gap * i + gap /2 + gap / 2)
 //    if (scale == 0f) {
 //        drawLine(0f, -gap/2, 0f, gap/2, paint)
 //    }
+    save()
+    translate(x, 0f)
     drawRect(RectF(-dSize, -gap/2, dSize, gap/2), paint)
+    restore()
     restore()
 }
 
