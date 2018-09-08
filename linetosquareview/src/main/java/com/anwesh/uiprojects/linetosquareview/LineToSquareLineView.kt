@@ -4,6 +4,7 @@ package com.anwesh.uiprojects.linetosquareview
  * Created by anweshmishra on 08/09/18.
  */
 
+import android.app.Activity
 import android.view.View
 import android.view.MotionEvent
 import android.content.Context
@@ -183,6 +184,14 @@ class LineToSquareLineView(ctx : Context) : View(ctx) {
             ltas.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : LineToSquareLineView {
+            val view : LineToSquareLineView = LineToSquareLineView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
