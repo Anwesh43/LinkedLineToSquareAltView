@@ -134,10 +134,32 @@ class LineToSquareLineView(ctx : Context) : View(ctx) {
                 curr = this.next
             }
             if (curr != null) {
-                return curr 
+                return curr
             }
             cb()
             return this
+        }
+    }
+
+    data class LineToAltSquare(var i : Int) {
+        private var root : SLANode = SLANode(0)
+        private var curr : SLANode = root
+        private var dir : Int = 1
+        fun draw(canvas : Canvas, paint : Paint) {
+            root.draw(canvas, paint)
+        }
+
+        fun update(cb : (Int, Float) -> Unit) {
+            curr.update {i, scl ->
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                cb(i, scl)
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            curr.startUpdating(cb)
         }
     }
 }
