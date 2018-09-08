@@ -9,9 +9,29 @@ import android.view.MotionEvent
 import android.content.Context
 import android.graphics.Paint
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.RectF
 
 val nodes : Int = 5
+
+fun Canvas.drawSLANode(i : Int, scale : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    val gap : Float = h / (nodes + 1)
+    val sc1 : Float = Math.min(0.5f, scale) * 2
+    val sc2 : Float = Math.min(0.5f, Math.max(scale - 0.5f, 0f)) * 2
+    val origSize = -gap/20
+    val dSize : Float = origSize + (gap/2 - origSize) * sc1
+    val x : Float = (w - gap/2) * sc2 * (1f - 2 * (i % 2))
+    paint.color = Color.parseColor("#4CAF50")
+    save()
+    translate(w/2, gap * i + gap /2 + gap / 4)
+//    if (scale == 0f) {
+//        drawLine(0f, -gap/2, 0f, gap/2, paint)
+//    }
+    drawRect(RectF(-dSize, -gap/2, dSize, gap/2), paint)
+    restore()
+}
 
 class LineToSquareLineView(ctx : Context) : View(ctx) {
 
